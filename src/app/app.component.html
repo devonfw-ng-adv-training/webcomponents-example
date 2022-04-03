@@ -1,0 +1,35 @@
+<h1>Shell Application for testing the star-rating custom element</h1>
+
+<h2>Inputs</h2>
+<p>
+  <b>Value</b><br>
+  Set value (currently stored as {{valueSet}})
+  <button (click)="setValue(0)">0</button>
+  <button (click)="setValue(1)">1</button>
+  <button (click)="setValue(2)">2</button>
+  <button (click)="setValue(3)">3</button>
+  <button (click)="setValue(4)">4</button>
+  <button (click)="setValue(5)">5</button>
+</p>
+<p>
+  <b>Enabled/Disabled</b><br>
+  Currently {{disabled ? 'disabled' : 'enabled'}}
+  <button (click)="enable()">enable</button>
+  <button (click)="disable()">disable</button>
+</p>
+
+<h2>Element to test</h2>
+
+<star-rating [value]="valueSet" [disabled]="disabled" (valueChanged)="notifyValueChanged($event)"></star-rating>
+
+<h2>Reported Values</h2>
+
+<p>
+  Reported value changes:
+<ul>
+  <li>Event type: {{typeof(eventFromElement)}}</li>
+  <li>Event: {{eventFromElement}}</li>
+  <!-- CE-NOTE: Event though angular binding is used, we get the value as CustomEvent -->
+  <li>Type of value from event ($event.detail): {{typeof(eventFromElement?.detail)}}</li>
+  <li>Value from event ($event.detail): {{eventFromElement?.detail}}</li>
+</ul>

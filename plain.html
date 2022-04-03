@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Plain HTML example of using an angular generated web component</title>
+  <!-- our generated web component -->
+  <!-- CE-NOTE: we have multiple files to import (potentially multiple angulars) -->
+  <script src="dist/star-rating/runtime.9c8e72cd29cbb31d.js" type="module"></script>
+  <script src="dist/star-rating/polyfills.3d68851319261016.js" type="module"></script>
+  <script src="dist/star-rating/main.046e67274fba0fd1.js" type="module"></script>
+</head>
+<body>
+<script type="application/ecmascript">
+  function setValue(newValue) {
+    const starRating = document.querySelector('star-rating');
+    // CE-NOTE: This will be passed as string!
+    starRating.setAttribute('value', newValue);
+    document.getElementById('currentValue').innerHTML = newValue;
+  }
+
+  function setEnabled(enabled) {
+    const starRating = document.querySelector('star-rating');
+    // CE-NOTE: This will be passed as string!
+    starRating.setAttribute('disabled', !enabled);
+    document.getElementById('currentDisabled').innerHTML = enabled;
+  }
+
+  function notifyValueChanged(event) {
+    document.getElementById('typeofEvent').innerHTML = typeof event;
+    document.getElementById('event').innerHTML = event;
+    document.getElementById('typeofEventDetail').innerHTML = typeof event.detail;
+    document.getElementById('eventDetail').innerHTML = event.detail;
+  }
+
+  setTimeout(function () {
+    document.querySelector('star-rating').addEventListener('valueChanged', notifyValueChanged);
+  }, 0);
+</script>
+<h1>Shell Application for testing the star-rating custom element</h1>
+
+<h2>Inputs</h2>
+<p>
+  <b>Value</b><br>
+  Set value (currently stored as <span id="currentValue"></span>)
+  <button onclick="setValue(0)">0</button>
+  <button onclick="setValue(1)">1</button>
+  <button onclick="setValue(2)">2</button>
+  <button onclick="setValue(3)">3</button>
+  <button onclick="setValue(4)">4</button>
+  <button onclick="setValue(5)">5</button>
+</p>
+<p>
+  <b>Enabled/Disabled</b><br>
+  Currently <span id="currentDisabled"></span>
+  <button onclick="setEnabled(true)">enable</button>
+  <button onclick="setEnabled(false)">disable</button>
+</p>
+
+<h2>Element to test</h2>
+
+<star-rating value="0" disabled="true" onvaluechangedxx="notifyValueChanged($event)"></star-rating>
+
+<h2>Reported Values</h2>
+
+<p>
+  Reported value changes:
+<ul>
+  <li>Event type: <span id="typeofEvent"></span></li>
+  <li>Event: <span id="event"></span></li>
+  <li>Type of value from event ($event.detail): <span id="typeofEventDetail"></span></li>
+  <li>Value from event ($event.detail): <span id="eventDetail"></span></li>
+</ul>
+</body>
+</html>
